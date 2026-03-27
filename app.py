@@ -3,7 +3,7 @@ from pydantic import BaseModel
 import joblib
 import numpy as np
 import os
-from fastapi.staticfiles import StaticFiles
+from fastapi.staticfiles import StaticFiles 
 from fastapi.responses import FileResponse
 
 # ---------------------------------------------------
