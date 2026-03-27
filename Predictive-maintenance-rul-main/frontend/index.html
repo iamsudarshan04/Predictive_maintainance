@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Turbofan Engine Health Monitoring</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/script.js" defer></script>
+</head>
+<body>
+<div class="container">
+    <h1>Turbofan Engine Health Monitoring Dashboard</h1>
+    <p class="subtitle">
+        Remaining Useful Life (RUL) estimation for predictive maintenance
+    </p>
+
+    <form id="rul-form">
+        <h3>Sensor Inputs</h3>
+
+        <label>Sensor 7</label>
+        <input type="number" step="any" id="sensor_7" required>
+
+        <label>Sensor 12</label>
+        <input type="number" step="any" id="sensor_12" required>
+
+        <label>Sensor 14</label>
+        <input type="number" step="any" id="sensor_14" required>
+
+        <label>Sensor 20</label>
+        <input type="number" step="any" id="sensor_20" required>
+
+        <label>Sensor 21</label>
+        <input type="number" step="any" id="sensor_21" required>
+
+        <h3>Operating Settings</h3>
+
+        <label>Op Setting 1</label>
+        <input type="number" step="any" id="op_setting_1" required>
+
+        <label>Op Setting 2</label>
+        <input type="number" step="any" id="op_setting_2" required>
+
+        <label>Op Setting 3</label>
+        <input type="number" step="any" id="op_setting_3" required>
+
+        <button type="submit">Predict RUL</button>
+    </form>
+
+    <div id="result"></div>
+
+    <p class="note">
+        * Predictions are based on historical turbofan engine degradation patterns.
+    </p>
+</div>
+</body>
+</html>
