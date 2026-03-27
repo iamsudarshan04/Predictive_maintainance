@@ -7,7 +7,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
 # ---------------------------------------------------
-# DEBUG: show Railway filesystem (VERY IMPORTANT)
+# DEBUG: show Railway filesystem
 # ---------------------------------------------------
 print("Current working directory:", os.getcwd())
 print("Root files:", os.listdir())
@@ -28,20 +28,28 @@ try:
     feature_columns = joblib.load("models/feature_columns.pkl")
     print("✅ Model and feature columns loaded successfully")
 except Exception as e:
-    print("❌ Error loading model:", e)
+    print("❌ Error loading model:", str(e))
 
 # ---------------------------------------------------
 # FastAPI app
 # ---------------------------------------------------
 app = FastAPI(title="Turbofan Engine RUL Prediction API")
 
-# Serve frontend static files
-app.mount("/static", StaticFiles(directory="frontend"), name="static")
+# ---------------------------------------------------
+# SAFE frontend handling (prevents crash)
+# ---------------------------------------------------
+if os.path.exists("frontend") and os.path.exists("frontend/index.html"):
+    app.mount("/static", StaticFiles(directory="frontend"), name="static")
 
-# Serve frontend homepage
-@app.get("/")
-def serve_frontend():
-    return FileResponse("frontend/index.html")
+    @app.get("/")
+    def serve_frontend():
+        return FileResponse("frontend/index.html")
+else:
+    print("⚠️ Frontend not found, using API root")
+
+    @app.get("/")
+    def home():
+        return {"message": "API is running (no frontend found)"}
 
 # ---------------------------------------------------
 # Input schema
